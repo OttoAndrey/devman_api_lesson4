@@ -17,11 +17,6 @@ def download_image(url, path, filename):
         file.write(response.content)
 
 
-def get_file_extension(url):
-    extension = url.split('/')[-1]
-    return extension
-
-
 def fetch_hubble_image(image_id, path):
     hubble_url = f'https://hubblesite.org/api/v3/image/{image_id}'
 
@@ -29,7 +24,8 @@ def fetch_hubble_image(image_id, path):
     response.raise_for_status()
 
     last_image_url = 'https:' + response.json()['image_files'][-1]['file_url']
-    filename = f'{image_id}{get_file_extension(last_image_url)}'
+    root_ext_image_url = os.path.splitext(last_image_url)
+    filename = f'{image_id}{root_ext_image_url[1]}'
     download_image(last_image_url, path, filename)
 
 
@@ -48,8 +44,8 @@ def upload_insta():
         image = Image.open(f'images/{image_name}')
         image.thumbnail((1080, 1080))
         rgb_image = image.convert('RGB')
-        image_name_without_extension = image_name.split('.')[0]
-        rgb_image.save(f'{insta_path}/{image_name_without_extension}.jpg', format='JPEG')
+        root_ext_image_name = os.path.splitext(image_name)
+        rgb_image.save(f'{insta_path}/{root_ext_image_name[0]}.jpg', format='JPEG')
 
     bot = instabot.Bot()
     bot.login(username=username, password=password)
