@@ -22,8 +22,9 @@ def fetch_hubble_image(image_id, path):
 
     response = requests.get(hubble_url)
     response.raise_for_status()
-
-    last_image_url = f'https:{response.json()["image_files"][-1]["file_url"]}'
+    image_files = response.json()['image_files']
+    last_image_file = image_files[-1]
+    last_image_url = f'https:{last_image_file["file_url"]}'
     root_ext_image_url = os.path.splitext(last_image_url)
     filename = f'{image_id}{root_ext_image_url[1]}'
     download_image(last_image_url, path, filename)

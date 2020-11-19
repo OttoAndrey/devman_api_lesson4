@@ -19,11 +19,12 @@ def fetch_spacex():
     response = requests.get(spacex_url)
     response.raise_for_status()
 
-    spacex_url_images = response.json()['links']['flickr_images']
+    links = response.json()['links']
+    spacex_images_urls = links['flickr_images']
 
-    for number, spacex_url_image in enumerate(spacex_url_images, start=1):
+    for number, spacex_image_url in enumerate(spacex_images_urls, start=1):
         filename = f'spacex{number}.jpg'
-        download_image(spacex_url_image, path, filename)
+        download_image(spacex_image_url, path, filename)
 
 
 if __name__ == '__main__':
