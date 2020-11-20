@@ -60,8 +60,12 @@ def upload_insta():
 
     insta_images_names = os.listdir(insta_path)
 
-    for insta_image_name in insta_images_names:
-        bot.upload_photo(f'{insta_path}/{insta_image_name}')
+    try:
+        for insta_image_name in insta_images_names:
+            bot.upload_photo(f'{insta_path}/{insta_image_name}')
+    except Exception as e:
+        print(e)
+        print('Не все ваши фотографии удалось загрузить. Попробуйте еще раз позже.')
 
 
 if __name__ == '__main__':
