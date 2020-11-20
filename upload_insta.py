@@ -19,15 +19,24 @@ def download_image(url, path, filename):
         file.write(response.content)
 
 
+def create_parser():
+    load_dotenv()
+
+    images_path = os.getenv('IMAGES_PATH') or 'images'
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-p', '--path', help='Путь до изображений', default=images_path)
+
+    return parser
+
+
 def upload_insta():
     load_dotenv()
 
     username = os.getenv('INSTAGRAM_USERNAME')
     password = os.getenv('INSTAGRAM_PASSWORD')
-    images_path = os.getenv('IMAGES_PATH') or 'images'
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-p', '--path', help='Путь до изображений', default=images_path)
+    parser = create_parser()
     args = parser.parse_args()
     images_path = args.path
 
