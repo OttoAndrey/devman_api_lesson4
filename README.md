@@ -8,7 +8,7 @@
 
 ## Запуск
 
-Для запуска скрипта вам понадобится Python3.
+Для запуска скриптов вам понадобится Python3.
 
 Скачайте код с GitHub.
 
@@ -22,15 +22,26 @@
 
 `python3 fetch_spacex.py 25`
 
+По умолчанчию изображения скачиваются в папку `images`.
+
+Можно добавить опциональный аргумент `--download_path`, чтобы указать куда загружать изображения, например:
+
+`python3 fetch_spacex.py 25 --download_path spacex_images`
+
 Скрипт `fetch_hubble.py` нужно запускать с названием коллекции, например:
 
 `python3 fetch_hubble.py spacecraft` 
 
-Изображения скачаются в папку `images`. Затем можно загрузить фотографии в свой профиль Instagram.
+По умолчанчию изображения скачиваются в папку `images`.
 
-`python3 upload_insta.py`
+Можно добавить опциональный аргумент `--download_path`, чтобы указать куда загружать изображения, например:
 
-Изображения будут отформатированы специально для Instagram и помещены в отдельную папку `insta_images`.
+`python3 fetch_hubble.py spacecraft --download_path hubble_images`
+
+Скрипт `upload_insta.py` загрузит изображения в ваш профиль Instagram. По умолчанию скрипт пытается найти изображения
+в папке `images`, но можно указать свой путь с помощью аргумента `--path`, например:
+
+`python3 upload_insta.py --path /my_folder/my_images_for_insta`
 
 
 ## Переменные окружения
@@ -41,10 +52,12 @@
 Необходимые переменные:
 - `INSTAGRAM_USERNAME` - имя пользователя в Instagram нужно для логина в аккаунт
 - `INSTAGRAM_PASSWORD` - пароль пользователя в Instagram нужно для логина в аккаунт
+- `IMAGES_PATH` - путь до изображений, которые надо загрузить в Instagram
+
 
 ## Используемые библиотеки
 
-* [requests](https://pypi.org/project/requests/) - для запросов к [Api](https://dev.bitly.com/api-reference) Bitly
+* [requests](https://pypi.org/project/requests/) - для запросов к API
 
 * [python-dotenv](https://pypi.org/project/python-dotenv/) - для обращения к переменным окружения
 
