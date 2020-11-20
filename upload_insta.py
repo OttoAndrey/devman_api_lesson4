@@ -1,3 +1,4 @@
+import argparse
 import os
 from pathlib import Path
 
@@ -35,14 +36,20 @@ def upload_insta():
 
     username = os.getenv('INSTAGRAM_USERNAME')
     password = os.getenv('INSTAGRAM_PASSWORD')
+    images_path = os.getenv('IMAGES_PATH') or 'images'
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-p', '--path', help='Путь до изображений', default=images_path)
+    args = parser.parse_args()
+    images_path = args.path
 
     insta_path = 'insta_images'
     Path(insta_path).mkdir(parents=True, exist_ok=True)
 
-    images_names = os.listdir('images')
+    images_names = os.listdir(images_path)
 
     for image_name in images_names:
-        image = Image.open(f'images/{image_name}')
+        image = Image.open(f'{images_path}/{image_name}')
         image.thumbnail((1080, 1080))
         rgb_image = image.convert('RGB')
         root_ext_image_name = os.path.splitext(image_name)
