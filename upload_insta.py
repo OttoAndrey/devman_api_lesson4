@@ -19,19 +19,6 @@ def download_image(url, path, filename):
         file.write(response.content)
 
 
-def fetch_hubble_image(image_id, path):
-    hubble_url = f'https://hubblesite.org/api/v3/image/{image_id}'
-
-    response = requests.get(hubble_url)
-    response.raise_for_status()
-    image_files = response.json()['image_files']
-    last_image_file = image_files[-1]
-    last_image_url = f'https:{last_image_file["file_url"]}'
-    root_ext_image_url = os.path.splitext(last_image_url)
-    filename = f'{image_id}{root_ext_image_url[1]}'
-    download_image(last_image_url, path, filename)
-
-
 def upload_insta():
     load_dotenv()
 
