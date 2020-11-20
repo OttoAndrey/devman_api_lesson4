@@ -1,5 +1,6 @@
 import argparse
 import os
+import shutil
 from pathlib import Path
 
 import instabot
@@ -66,6 +67,8 @@ def upload_insta():
     except Exception as e:
         print(e)
         print('Не все ваши фотографии удалось загрузить. Попробуйте еще раз позже.')
+    finally:
+        shutil.rmtree(insta_path)
 
 
 if __name__ == '__main__':
